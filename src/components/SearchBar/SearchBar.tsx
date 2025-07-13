@@ -1,15 +1,10 @@
 import style from './SearchBar.module.css'
 import {toast} from 'react-hot-toast'
-import Paginate from "../Paginate/Paginate.tsx";
 
 interface SearchBarProps {
     onSubmit: (query: string) => void;
-    page: number;
-    setPage: (page:number) => void;
-    isSuccess: boolean;
-    totalPages: number
 }
-const SearchBar = ({onSubmit, page, setPage, isSuccess, totalPages}: SearchBarProps) => {
+const SearchBar = ({onSubmit}: SearchBarProps) => {
     const handleSubmit = (formData: FormData) => {
         const query = formData.get("query") as string;
         if (!query) {
@@ -19,20 +14,6 @@ const SearchBar = ({onSubmit, page, setPage, isSuccess, totalPages}: SearchBarPr
         onSubmit(query)
     }
     return (
-        <>
-            <header className={style.header}>
-                <div className={style.container}>
-                    <a
-                        className={style.link}
-                        href="https://www.themoviedb.org/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Powered by TMDB
-                    </a>
-                    {isSuccess && totalPages>1 && (
-                        <Paginate page={page} setPage={setPage} totalPages={totalPages}/>
-                    )}
                     <form className={style.form}
                           action={handleSubmit}
                     >
@@ -50,10 +31,6 @@ const SearchBar = ({onSubmit, page, setPage, isSuccess, totalPages}: SearchBarPr
                             Search
                         </button>
                     </form>
-                </div>
-            </header>
-
-        </>
     );
 };
 export default SearchBar
